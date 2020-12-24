@@ -1,0 +1,31 @@
+<configuration>
+    <settings>
+        <name>LEZ Download</name>
+        <remoteHost>vipftps-aip.vlaanderen.be</remoteHost>
+        <remotePort>21</remotePort>
+        <username>gent.be-lez-ftp-aip</username>
+        <keystore>c:\git\FTPS_CmdClient\gent.be-lez-ftp-aip.jks</keystore>
+        <keystorePass>boresfacetedyn=*SArGt3vDx3YiHAwI</keystorePass>
+        <remotePath>/from_vip</remotePath>
+        <filter>.*\.csv</filter>
+        <localPath>c:\temp\ftp\lez\download\</localPath>
+        <direction>GET</direction>
+        <action>DELETE</action>
+    </settings>
+
+    <settings>
+        <name>LEZ Upload</name>
+        <remoteHost>vipftps-aip.vlaanderen.be</remoteHost>
+        <remotePort>21</remotePort>
+        <username>gent.be-lez-ftp-aip</username>
+        <keystore>c:\git\FTPS_CmdClient\gent.be-lez-ftp-aip.jks</keystore>
+        <keystorePass>boresfacetedyn=*SArGt3vDx3YiHAwI</keystorePass>
+        <remotePath>/to_vip</remotePath>
+        <filter>.*\.csv</filter>
+        <localPath>c:\temp\ftp\lez\upload</localPath>
+        <direction>PUT</direction>
+        <action>MOVE</action>
+        <movePath>c:\temp\ftp\lez\uploaded</movePath>
+    </settings>
+
+</configuration>

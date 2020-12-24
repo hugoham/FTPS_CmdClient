@@ -1,52 +1,48 @@
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-@XmlRootElement(name = "settings")
 public class Settings implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     // Properties
 
-    private String sourceHost;
-    private int sourcePort;
+    private String remoteHost;
+    private int remotePort;
     private String username;
     private String keystore;
     private String keystorePass;
-    private String sourcePath;
-    private String sourceFiles;
+    private String remotePath;
+    private String filter;
     private String localPath;
     private String direction;
+    private String name;
+    private String action;
+    private String movePath;
 
 // Getters and Setters
+
 
     public Settings() {
         super();
     }
 
-    public Settings(String sourceHost, int sourcePort) {
-        super();
-        this.sourceHost = sourceHost;
-        this.sourcePort = sourcePort;
-    }
-
-    public String getSourceHost() {
-        return sourceHost;
+    public String getRemoteHost() {
+        return remoteHost;
     }
 
     @XmlElement
-    public void setSourceHost(String sourceHost) {
-        this.sourceHost = sourceHost;
+    public void setRemoteHost(String remoteHost) {
+        this.remoteHost = remoteHost;
     }
 
-    public int getSourcePort() {
-        return sourcePort;
+    public int getRemotePort() {
+        return remotePort;
     }
 
     @XmlElement
-    public void setSourcePort(int sourcePort) {
-        this.sourcePort = sourcePort;
+    public void setRemotePort(int remotePort) {
+        this.remotePort = remotePort;
     }
 
     public String getUsername() {
@@ -85,13 +81,13 @@ public class Settings implements Serializable {
         this.localPath = localPath;
     }
 
-    public String getSourcePath() {
-        return sourcePath;
+    public String getRemotePath() {
+        return remotePath;
     }
 
     @XmlElement
-    public void setSourcePath(String sourcePath) {
-        this.sourcePath = sourcePath;
+    public void setRemotePath(String remotePath) {
+        this.remotePath = remotePath;
     }
 
     public String getDirection() {
@@ -103,25 +99,52 @@ public class Settings implements Serializable {
         this.direction = direction;
     }
 
-    // Constructors
-
-    public String getSourceFiles() {
-        return sourceFiles;
+    public String getFilter() {
+        return filter;
     }
 
     @XmlElement
-    public void setSourceFiles(String sourceFiles) {
-        this.sourceFiles = sourceFiles;
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @XmlElement
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    @XmlElement
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getMovePath() {
+        return movePath;
+    }
+
+    // Constructors
+
+    @XmlElement
+    public void setMovePath(String movePath) {
+        this.movePath = movePath;
     }
 
     // Overrides
 
     @Override
     public String toString() {
-        return "  sourceHost  => " + sourceHost + System.lineSeparator()
-                + "  sourcePort  => " + sourcePort + System.lineSeparator()
-                + "  sourcePath  => " + sourcePath + System.lineSeparator()
-                + "  sourceFiles => " + sourceFiles + System.lineSeparator();
+        return "  remoteHost  => " + remoteHost + System.lineSeparator()
+                + "  remotePort  => " + remotePort + System.lineSeparator()
+                + "  remotePath  => " + remotePath + System.lineSeparator()
+                + "  filter => " + filter + System.lineSeparator();
     }
 }
 

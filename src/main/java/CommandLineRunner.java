@@ -8,51 +8,66 @@ import javax.net.ssl.KeyManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.GeneralSecurityException;
 import java.util.regex.Pattern;
+
+import static java.lang.System.exit;
 
 public class CommandLineRunner {
 
     public static void main(String[] args) {
         if (args.length == 0) {
-            System.out.println("Usage: pass a settings.xml file as an argument");
-            System.exit(1);
+            Logging.error("Usage: pass a settings.xml file as an argument");
+            exit(1);
         }
 
-        log("CommandLineRunner started");
+        Logging.info(CommandLineRunner.class.getName() + " started");
         System.setProperty("jdk.tls.useExtendedMasterSecret", "false");
 
-        log("Using settings from " + args[0]);
-        Settings settings = readSettings(args[0]);
+        Logging.info("Using settings from " + args[0]);
+        Configuration config = readConfig(args[0]);
 
-        getFiles(settings);
-
+        for (Settings settings: config.settings) {
+            Logging.info("Using settings for: " + settings.getName());
+            Logging.debug("settings.getDirection() = " + settings.getDirection());
+            if (settings.getDirection().equalsIgnoreCase("GET")) {
+                Logging.debug("GET");
+                getFiles(settings);
+            }
+            if (settings.getDirection().equalsIgnoreCase("PUT")) {
+                Logging.debug("PUT");
+                putFiles(settings);
+            }
+        }
     }
 
-    private static void getFiles(final Settings settings) {
+    private static SSLSessionReuseFTPSClient getClient(Settings settings) {
         SSLSessionReuseFTPSClient ftpClient = new SSLSessionReuseFTPSClient();
-        log("Client constructed");
-
+        Logging.debug("Client constructed");
         ftpClient.addProtocolCommandListener(new PrintCommandListener(System.out));
 
         try {
             ftpClient.setKeyManager(getKeyManager(settings));
-            log("KeyManager set");
+            Logging.debug("KeyManager set");
         } catch (IOException e) {
             e.printStackTrace();
+            exit(1);
         } catch (GeneralSecurityException e) {
             e.printStackTrace();
+            exit(1);
         }
 
         ftpClient.setTrustManager(TrustManagerUtils.getAcceptAllTrustManager());
-        log("TrustManager set");
+        Logging.debug("TrustManager set");
 
         try {
-            ftpClient.connect(settings.getSourceHost(), settings.getSourcePort());
-            log("Client connected");
+            ftpClient.connect(settings.getRemoteHost(), settings.getRemotePort());
+            Logging.debug("Client connected");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,63 +89,101 @@ public class CommandLineRunner {
         int reply = ftpClient.getReplyCode();
 //        log("Reply: " + reply);
 
+        return ftpClient;
+    }
+
+    private static void putFiles(final Settings settings) {
+        SSLSessionReuseFTPSClient ftpClient = getClient(settings);
+
+        // do PUT stuff
         try {
-            ftpClient.changeWorkingDirectory(settings.getSourcePath());
-//            FTPFile[] files = ftpClient.listFiles();
-            FTPFile[] files = ftpClient.listFiles("", new FTPFileFilter() {
+            ftpClient.changeWorkingDirectory(settings.getRemotePath());
+
+            File localDir = new File(settings.getLocalPath());
+
+
+            File[] files = localDir.listFiles(new FilenameFilter() {
                 @Override
-                public boolean accept(FTPFile ftpFile) {
-                    return Pattern.matches(settings.getSourceFiles(), ftpFile.getName());
+                public boolean accept(File dir, String name) {
+                    return Pattern.matches(settings.getFilter(), name);
                 }
             });
 
-            System.out.println("files.length = " + files.length);
+            for (File file:files) {
 
-            for (FTPFile file : files) {
-                if (file.isFile()) {
-                    boolean b = ftpClient.retrieveFile(file.getName(), new FileOutputStream(settings.getLocalPath() + file.getName()));
+                FileInputStream inputStream = new FileInputStream(file);
+                boolean b = ftpClient.storeFile(file.getName(), inputStream);
+                inputStream.close();
+                if (b) {
+                    if (settings.getAction().equalsIgnoreCase("DELETE")) {
+                        file.delete();
+                        Logging.info(file.getPath() + " deleted.");
+                    }
+                    if (settings.getAction().equalsIgnoreCase("MOVE")) {
+                        FileSystem fs = FileSystems.getDefault();
+                        Path newPath = fs.getPath(settings.getMovePath(), file.getName());
+                        Files.move(file.toPath(), newPath);
+                        Logging.info(file.getPath() + " ==> " + newPath.toString());
+                    }
                 }
             }
-
-//            FTPFile[] dirs = ftpClient.listDirectories();
-//
-//            for (FTPFile dir : dirs) {
-//                log(dir.getName());
-//                ftpClient.changeWorkingDirectory(dir.getName());
-//
-//                FTPFile[] files = ftpClient.listFiles();
-//
-//                if (files.length == 0) {
-//                    log("--> No files found");
-//                }
-//
-//                for (FTPFile file : files) {
-//                    log("--> " + file.getName());
-//                }
-//                ftpClient.changeToParentDirectory();
-//            }
-
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        logoutAndDisconnect(ftpClient);
+    }
+
+    private static void getFiles(final Settings settings) {
+        SSLSessionReuseFTPSClient ftpClient = getClient(settings);
+
+        try {
+            ftpClient.changeWorkingDirectory(settings.getRemotePath());
+//            FTPFile[] files = ftpClient.listFiles();
+            FTPFile[] files = ftpClient.listFiles("", new FTPFileFilter() {
+                @Override
+                public boolean accept(FTPFile ftpFile) {
+                    return Pattern.matches(settings.getFilter(), ftpFile.getName());
+                }
+            });
+
+            Logging.debug("files.length = " + files.length);
+
+            for (FTPFile file : files) {
+                if (file.isFile()) {
+                    FileSystem fs = FileSystems.getDefault();
+                    Path localPath = fs.getPath(settings.getLocalPath(), file.getName());
+                    boolean b = ftpClient.retrieveFile(file.getName(), new FileOutputStream(localPath.toString()));
+
+                    if (b) {
+                        if (settings.getAction().equalsIgnoreCase("DELETE")) {
+                            ftpClient.deleteFile(file.getName());
+                            Logging.info(file.getName() + " deleted.");
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        logoutAndDisconnect(ftpClient);
+    }
+
+    private static void logoutAndDisconnect(SSLSessionReuseFTPSClient ftpClient) {
         try {
             ftpClient.logout();
-            log("Client logged out");
+            Logging.debug("Client logged out");
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
             ftpClient.disconnect();
-            log("Client disconnected");
+            Logging.debug("Client disconnected");
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private static void log(String s) {
-        System.out.println(s);
     }
 
     private static KeyManager getKeyManager(Settings settings) throws IOException, GeneralSecurityException {
@@ -143,21 +196,20 @@ public class CommandLineRunner {
         return KeyManagerUtils.createClientKeyManager(keyStoreFile, settings.getKeystorePass());
     }
 
-    private static Settings readSettings(String settingsFile) {
-        File xmlFile = new File(settingsFile);
+    private static Configuration readConfig(String configFile) {
+        File xmlFile = new File(configFile);
 
         JAXBContext jaxbContext;
         try {
-            jaxbContext = JAXBContext.newInstance(Settings.class);
+            jaxbContext = JAXBContext.newInstance(Configuration.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            Settings settings = (Settings) jaxbUnmarshaller.unmarshal(xmlFile);
-            System.out.println(settings);
-            return settings;
+            Configuration config = (Configuration) jaxbUnmarshaller.unmarshal(xmlFile);
+            Logging.info(config.toString());
+            return config;
 
         } catch (JAXBException e) {
             e.printStackTrace();
         }
         return null;
     }
-
 }
