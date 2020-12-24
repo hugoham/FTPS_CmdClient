@@ -1,3 +1,5 @@
+package be.district09.sf.config;
+
 import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 

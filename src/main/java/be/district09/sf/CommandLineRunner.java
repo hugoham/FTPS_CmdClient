@@ -1,6 +1,9 @@
+package be.district09.sf;
+
+import be.district09.sf.config.Configuration;
+import be.district09.sf.config.Settings;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPFile;
-import org.apache.commons.net.ftp.FTPFileFilter;
 import org.apache.commons.net.util.KeyManagerUtils;
 import org.apache.commons.net.util.TrustManagerUtils;
 
@@ -8,7 +11,10 @@ import javax.net.ssl.KeyManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -32,7 +38,8 @@ public class CommandLineRunner {
         Logging.info("Using settings from " + args[0]);
         Configuration config = readConfig(args[0]);
 
-        for (Settings settings: config.settings) {
+        assert config != null;
+        for (Settings settings: config.getSettings()) {
             Logging.info("Using settings for: " + settings.getName());
             Logging.debug("settings.getDirection() = " + settings.getDirection());
             if (settings.getDirection().equalsIgnoreCase("GET")) {
@@ -54,10 +61,7 @@ public class CommandLineRunner {
         try {
             ftpClient.setKeyManager(getKeyManager(settings));
             Logging.debug("KeyManager set");
-        } catch (IOException e) {
-            e.printStackTrace();
-            exit(1);
-        } catch (GeneralSecurityException e) {
+        } catch (IOException | GeneralSecurityException e) {
             e.printStackTrace();
             exit(1);
         }
@@ -86,8 +90,6 @@ public class CommandLineRunner {
         }
 
         ftpClient.enterLocalPassiveMode();
-        int reply = ftpClient.getReplyCode();
-//        log("Reply: " + reply);
 
         return ftpClient;
     }
@@ -100,15 +102,9 @@ public class CommandLineRunner {
             ftpClient.changeWorkingDirectory(settings.getRemotePath());
 
             File localDir = new File(settings.getLocalPath());
+            File[] files = localDir.listFiles((dir, name) -> Pattern.matches(settings.getFilter(), name));
 
-
-            File[] files = localDir.listFiles(new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String name) {
-                    return Pattern.matches(settings.getFilter(), name);
-                }
-            });
-
+            assert files != null;
             for (File file:files) {
 
                 FileInputStream inputStream = new FileInputStream(file);
@@ -116,8 +112,9 @@ public class CommandLineRunner {
                 inputStream.close();
                 if (b) {
                     if (settings.getAction().equalsIgnoreCase("DELETE")) {
-                        file.delete();
-                        Logging.info(file.getPath() + " deleted.");
+                        boolean deleted = file.delete();
+                        if (deleted)
+                            Logging.info(file.getPath() + " deleted.");
                     }
                     if (settings.getAction().equalsIgnoreCase("MOVE")) {
                         FileSystem fs = FileSystems.getDefault();
@@ -140,13 +137,7 @@ public class CommandLineRunner {
 
         try {
             ftpClient.changeWorkingDirectory(settings.getRemotePath());
-//            FTPFile[] files = ftpClient.listFiles();
-            FTPFile[] files = ftpClient.listFiles("", new FTPFileFilter() {
-                @Override
-                public boolean accept(FTPFile ftpFile) {
-                    return Pattern.matches(settings.getFilter(), ftpFile.getName());
-                }
-            });
+            FTPFile[] files = ftpClient.listFiles("", ftpFile -> Pattern.matches(settings.getFilter(), ftpFile.getName()));
 
             Logging.debug("files.length = " + files.length);
 
