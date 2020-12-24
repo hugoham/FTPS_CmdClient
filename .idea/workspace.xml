@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="68d21ed2-d691-414a-bed5-ae7c2d93bf43" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="userSettingsFile" value="C:\TEMP\maven_settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1m0PnTLObC3IuETJ1LCGoQ4zZAX" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="project.validation" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\git\FTPS_CmdClient" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="service" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\git\FTPS_CmdClient" />
+      <recent name="C:\git\FTPS_CmdClient\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.CommandLineRunner - Kandidatuur">
+    <configuration name="CommandLineRunner - Kandidatuur" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="CommandLineRunner" />
+      <module name="FTPS_CmdClient" />
+      <option name="PROGRAM_PARAMETERS" value="C:\TEMP\ftp\kandidatuur\settings.xml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommandLineRunner - LEZ" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="CommandLineRunner" />
+      <module name="FTPS_CmdClient" />
+      <option name="PROGRAM_PARAMETERS" value="C:\TEMP\ftp\lez\settings.xml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommandLineRunner - SAP" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="CommandLineRunner" />
+      <module name="FTPS_CmdClient" />
+      <option name="PROGRAM_PARAMETERS" value="C:\TEMP\ftp\sap\settings.xml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.CommandLineRunner - LEZ" />
+      <item itemvalue="Application.CommandLineRunner - SAP" />
+      <item itemvalue="Application.CommandLineRunner - Kandidatuur" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CommandLineRunner - LEZ" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="68d21ed2-d691-414a-bed5-ae7c2d93bf43" name="Default Changelist" comment="" />
+      <created>1608627701131</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1608627701131</updated>
+      <workItem from="1608627702682" duration="27950000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="176" y="88" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1608716772204">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state x="176" y="88" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1441.864@0.0.1441.864" timestamp="1608716772204" />
+    <state x="440" y="236" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1608628617615">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state x="440" y="236" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1441.864@0.0.1441.864" timestamp="1608628617615" />
+    <state x="526" y="143" key="#com.intellij.ide.util.MemberChooser" timestamp="1608736998719">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state x="526" y="143" key="#com.intellij.ide.util.MemberChooser/0.0.1441.864@0.0.1441.864" timestamp="1608736998719" />
+    <state x="451" y="180" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1608647382013">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state x="451" y="180" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1441.864@0.0.1441.864" timestamp="1608647382013" />
+    <state width="414" height="466" key="DebuggerActiveHint" timestamp="1608711956570">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state width="414" height="466" key="DebuggerActiveHint/0.0.1441.864@0.0.1441.864" timestamp="1608711956570" />
+    <state x="501" y="188" key="FileChooserDialogImpl" timestamp="1608627971159">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state x="501" y="188" key="FileChooserDialogImpl/0.0.1441.864@0.0.1441.864" timestamp="1608627971159" />
+    <state width="1398" height="244" key="GridCell.Tab.0.bottom" timestamp="1608716776505">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state width="1398" height="244" key="GridCell.Tab.0.bottom/0.0.1441.864@0.0.1441.864" timestamp="1608716776505" />
+    <state width="1398" height="244" key="GridCell.Tab.0.center" timestamp="1608716776505">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state width="1398" height="244" key="GridCell.Tab.0.center/0.0.1441.864@0.0.1441.864" timestamp="1608716776505" />
+    <state width="1398" height="244" key="GridCell.Tab.0.left" timestamp="1608716776505">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state width="1398" height="244" key="GridCell.Tab.0.left/0.0.1441.864@0.0.1441.864" timestamp="1608716776505" />
+    <state width="1398" height="244" key="GridCell.Tab.0.right" timestamp="1608716776505">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state width="1398" height="244" key="GridCell.Tab.0.right/0.0.1441.864@0.0.1441.864" timestamp="1608716776505" />
+    <state width="1398" height="277" key="GridCell.Tab.1.bottom" timestamp="1608712781727">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state width="1398" height="277" key="GridCell.Tab.1.bottom/0.0.1441.864@0.0.1441.864" timestamp="1608712781727" />
+    <state width="1398" height="277" key="GridCell.Tab.1.center" timestamp="1608712781726">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state width="1398" height="277" key="GridCell.Tab.1.center/0.0.1441.864@0.0.1441.864" timestamp="1608712781726" />
+    <state width="1398" height="277" key="GridCell.Tab.1.left" timestamp="1608712781726">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state width="1398" height="277" key="GridCell.Tab.1.left/0.0.1441.864@0.0.1441.864" timestamp="1608712781726" />
+    <state width="1398" height="277" key="GridCell.Tab.1.right" timestamp="1608712781727">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state width="1398" height="277" key="GridCell.Tab.1.right/0.0.1441.864@0.0.1441.864" timestamp="1608712781727" />
+    <state x="251" y="88" key="Maven.ArtifactSearchDialog" timestamp="1608710665474">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state x="251" y="88" key="Maven.ArtifactSearchDialog/0.0.1441.864@0.0.1441.864" timestamp="1608710665474" />
+    <state x="230" y="76" key="SettingsEditor" timestamp="1608628178188">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state x="230" y="76" key="SettingsEditor/0.0.1441.864@0.0.1441.864" timestamp="1608628178188" />
+    <state x="161" y="135" key="new project wizard" timestamp="1608632878716">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state x="161" y="135" key="new project wizard/0.0.1441.864@0.0.1441.864" timestamp="1608632878716" />
+    <state x="427" y="52" key="refactoring.ChangeSignatureDialog" timestamp="1608647312281">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state x="427" y="52" key="refactoring.ChangeSignatureDialog/0.0.1441.864@0.0.1441.864" timestamp="1608647312281" />
+    <state x="383" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1608641303431">
+      <screen x="0" y="0" width="1441" height="864" />
+    </state>
+    <state x="383" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1441.864@0.0.1441.864" timestamp="1608641303431" />
+  </component>
+</project>

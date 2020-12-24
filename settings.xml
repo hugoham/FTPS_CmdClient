@@ -1,0 +1,11 @@
+<settings>
+    <sourceHost>vipftps-aip.vlaanderen.be</sourceHost>
+    <sourcePort>21</sourcePort>
+    <username>gent.be-lez-ftp-aip</username>
+    <keystore>c:\git\FTPS_CmdClient\gent.be-lez-ftp-aip.jks</keystore>
+    <keystorePass>boresfacetedyn=*SArGt3vDx3YiHAwI</keystorePass>
+    <sourcePath>/from_vip</sourcePath>
+    <sourceFiles>.*\.csv</sourceFiles>
+    <localPath>c:\temp\ftp\</localPath>
+</settings>
+
